@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>دورة اللغة الإنجليزية | جهاز تنمية وإعمار المناطق</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* --- Variables --- */
+        :root {
+            --primary: #1A3668; 
+            --primary-hover: #12264A;
+            --accent: #C49A45; 
+            --accent-hover: #A68138;
+            --bg-main: #F4F7F6;
+            --bg-card: #FFFFFF;
+            --text-main: #111827;
+            --text-muted: #4B5563;
+            --border-color: #E5E7EB;
+            --success: #10B981;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --radius-md: 16px;
+            --radius-lg: 24px;
+            --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 20px 40px -10px rgba(26, 54, 104, 0.15);
+        }
+
+        /* --- Reset & Base --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Cairo', sans-serif; background-color: var(--bg-main); color: var(--text-main); line-height: 1.6; overflow-x: hidden; scroll-behavior: smooth; }
+        a { text-decoration: none; color: inherit; }
+        ul { list-style: none; }
+        .container { width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+        .section { padding: 96px 0; }
+        .bg-light { background-color: #FFFFFF; }
+
+        /* --- Typography --- */
+        h1, h2, h3 { line-height: 1.3; font-weight: 700; color: var(--primary); }
+        h2 { font-size: 2.5rem; margin-bottom: 16px; }
+
+        /* --- Buttons --- */
+        .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; font-weight: 700; border: none; cursor: pointer; border-radius: var(--radius-md); transition: var(--transition); }
+        .btn-sm { padding: 10px 20px; font-size: 0.95rem; }
+        .btn-lg { padding: 16px 32px; font-size: 1.1rem; }
+        .btn-block { width: 100%; padding: 16px; font-size: 1.1rem; }
+        .btn-primary { background-color: var(--primary); color: white; box-shadow: 0 4px 15px rgba(26, 54, 104, 0.3); }
+        .btn-primary:hover { background-color: var(--primary-hover); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(26, 54, 104, 0.4); }
+        .btn-accent { background-color: var(--accent); color: white; box-shadow: 0 4px 15px rgba(196, 154, 69, 0.3); }
+        .btn-accent:hover { background-color: var(--accent-hover); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(196, 154, 69, 0.4); }
+        .btn-secondary { background-color: white; color: var(--primary); border: 2px solid var(--border-color); }
+        .btn-secondary:hover { border-color: var(--accent); transform: translateY(-2px); }
+
+        /* --- UI Elements --- */
+        .glass-card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-lg); box-shadow: var(--shadow-md); }
+        .badge { display: inline-flex; align-items: center; gap: 6px; padding: 6px 16px; background: rgba(196, 154, 69, 0.15); color: var(--accent); border-radius: 100px; font-size: 0.9rem; font-weight: 700; border: 1px solid rgba(196, 154, 69, 0.3); }
+
+        /* --- Navbar --- */
+        .navbar { position: fixed; top: 0; left: 0; right: 0; height: 135px; background: transparent; z-index: 1000; transition: var(--transition); }
+        .navbar.scrolled { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(12px); box-shadow: var(--shadow-sm); border-bottom: 1px solid var(--border-color); }
+        .nav-container { height: 100%; display: flex; justify-content: space-between; align-items: center; }
+        .logo { display: flex; align-items: center; height: 100%; }
+        
+        /* ========================================= */
+        /* الحل النهائي لمشكلة الشعار ذو الفراغات الكبيرة */
+        /* ========================================= */
+        .agency-logo-bg { 
+            width: 250px;  /* المساحة المحجوزة للشعار في الصفحة */
+            height: 150px;
+            background-image: url('logo1.png'); /* تأكد أن الصورة بنفس المجلد وباسم logo.png */
+            
+            /* هذا السطر هو السحر: 250% تعني عمل زوم للصورة لتخطي الفراغات الشفافة. 
+               إذا كان الشعار لا يزال صغيراً، غير الرقم إلى 300% أو 350% 
+               وإذا كان كبيراً جداً، اجعله 200% */
+            background-size: 75%; 
+            
+            background-position: center; /* إبقاء الشعار في المنتصف */
+            background-repeat: no-repeat;
+            display: block;
+        } 
+        /* ========================================= */
+
+        /* --- Hero Section --- */
+        .hero { position: relative; padding: 180px 0 100px; overflow: hidden; background: linear-gradient(135deg, #F8FAFC 0%, #E2E8F0 100%); }
+        .hero-bg-shape { position: absolute; top: -10%; left: -5%; width: 500px; height: 500px; background: radial-gradient(circle, rgba(26,54,104,0.08) 0%, rgba(248,250,252,0) 70%); border-radius: 50%; z-index: 0; }
+        .hero-container { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; position: relative; z-index: 1; }
+        .hero-content .badges { margin-bottom: 24px; display: flex; gap: 12px; flex-wrap: wrap; }
+        .hero-title { font-size: 3.5rem; margin-bottom: 24px; color: var(--primary); }
+        .hero-title span { color: var(--accent); }
+        .hero-desc { font-size: 1.2rem; color: var(--text-muted); margin-bottom: 40px; font-weight: 500; }
+        .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; }
+
+        /* Interactive Image */
+        .interactive-graphic { position: relative; width: 100%; border-radius: var(--radius-lg); transform-style: preserve-3d; perspective: 1000px; }
+        .hero-img { width: 100%; height: 450px; object-fit: cover; border-radius: var(--radius-lg); box-shadow: var(--shadow-lg); transition: transform 0.5s; border: 4px solid white; background-color: #E2E8F0; }
+        .interactive-graphic:hover .hero-img { transform: scale(1.02) rotateY(-2deg); }
+        
+        .floating-element { position: absolute; background: white; padding: 12px 20px; border-radius: var(--radius-md); box-shadow: var(--shadow-md); display: flex; align-items: center; gap: 12px; font-weight: 700; color: var(--primary); border-right: 4px solid var(--accent); animation: float 4s ease-in-out infinite; }
+        .floating-element i { color: var(--accent); font-size: 1.5rem; }
+        .float-1 { top: 10%; right: -20px; animation-delay: 0s; }
+        .float-2 { bottom: 15%; left: -20px; animation-delay: 2s; }
+        @keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-15px); } }
+
+        /* --- Info Grid --- */
+        .info-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: -40px; position: relative; z-index: 10; padding: 0 24px; max-width: 1000px; margin-left: auto; margin-right: auto;}
+        .info-card { background: var(--primary); color: white; padding: 24px; border-radius: var(--radius-md); text-align: center; box-shadow: var(--shadow-md); border-bottom: 4px solid var(--accent); transition: var(--transition); }
+        .info-card:hover { transform: translateY(-5px); }
+        .info-card i { font-size: 2rem; color: var(--accent); margin-bottom: 12px; }
+        .info-card h3 { color: white; font-size: 1.1rem; margin-bottom: 4px; }
+        .info-card p { font-size: 0.9rem; opacity: 0.9; }
+
+        /* --- Course Details Section --- */
+        .section-header { text-align: center; margin-bottom: 64px; }
+        .section-header p { color: var(--text-muted); font-size: 1.1rem; }
+        .grid-4 { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 32px; }
+        .feature-card { background: var(--bg-card); padding: 32px 24px; border-radius: var(--radius-md); border: 1px solid var(--border-color); box-shadow: var(--shadow-sm); transition: var(--transition); text-align: center; }
+        .feature-card:hover { transform: translateY(-8px); box-shadow: var(--shadow-lg); border-color: var(--accent); }
+        .icon-wrapper { width: 64px; height: 64px; background: rgba(196, 154, 69, 0.1); color: var(--accent); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; margin: 0 auto 24px; }
+        .feature-card h3 { margin-bottom: 12px; color: var(--primary); font-size: 1.3rem; }
+        .feature-card p { color: var(--text-muted); font-size: 1rem; font-weight: 600; }
+
+        /* --- Form Section --- */
+        .registration-container { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: flex-start; }
+        .reg-visual-header { text-align: right; margin-bottom: 24px; }
+        .animated-reg-icon { width: 90px; height: 90px; background: linear-gradient(135deg, rgba(26,54,104,0.1), rgba(196,154,69,0.15)); border-radius: 24px; display: inline-flex; align-items: center; justify-content: center; font-size: 2.5rem; color: var(--primary); border: 2px dashed var(--accent); animation: float-spin 5s ease-in-out infinite; box-shadow: 0 10px 25px rgba(196,154,69,0.2); }
+        @keyframes float-spin { 0% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-10px) rotate(5deg); } 100% { transform: translateY(0) rotate(0deg); } }
+        .cta-content h2 { font-size: 2.8rem; margin-bottom: 24px; }
+        .cta-content p { font-size: 1.1rem; color: var(--text-muted); margin-bottom: 24px;}
+        .checklist { display: grid; gap: 16px; margin-top: 24px;}
+        .checklist li { display: flex; align-items: center; gap: 12px; font-weight: 600; color: var(--primary); font-size: 1.1rem;}
+        .checklist i { color: var(--accent); font-size: 1.3rem; background: rgba(196,154,69,0.1); padding: 8px; border-radius: 50%;}
+
+        .form-wrapper { padding: 40px; background: white; border-top: 6px solid var(--primary); }
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; font-weight: 700; margin-bottom: 8px; font-size: 0.95rem; color: var(--primary); }
+        .required { color: #EF4444; }
+        .form-group input { width: 100%; padding: 14px 16px; border: 2px solid var(--border-color); border-radius: var(--radius-sm); font-family: inherit; font-size: 1rem; background: var(--bg-main); transition: var(--transition); }
+        .form-group input:focus { outline: none; border-color: var(--accent); background: #fff; box-shadow: 0 0 0 4px rgba(196, 154, 69, 0.1); }
+
+        /* --- Footer --- */
+        .footer { background: #050505; padding: 40px 0; border-top: 4px solid var(--accent); color: white; text-align: center;}
+        
+        /* تطبيق الفكرة على الفوتر أيضاً */
+        .footer .agency-logo-bg { 
+            width: 300px; 
+            height: 110px; 
+            margin: 0 auto 16px auto; 
+            background-size: 60%; 
+        }
+        
+        .footer p { color: #9CA3AF; font-size: 0.9rem; margin-top: 10px; }
+
+        /* Toast */
+        .toast { position: fixed; bottom: 32px; left: 32px; background: var(--success); color: white; padding: 16px 24px; border-radius: var(--radius-md); display: flex; align-items: center; gap: 12px; box-shadow: var(--shadow-lg); transform: translateY(100px); opacity: 0; transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55); z-index: 9999; font-weight: 700; }
+        .toast.show { transform: translateY(0); opacity: 1; }
+
+        /* Animations */
+        .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s ease-out; }
+        .reveal-left { opacity: 0; transform: translateX(30px); transition: all 0.8s ease-out; }
+        .reveal-right { opacity: 0; transform: translateX(-30px); transition: all 0.8s ease-out; }
+        .active.reveal, .active.reveal-left, .active.reveal-right { opacity: 1; transform: translate(0); }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .hero-container, .registration-container { grid-template-columns: 1fr; text-align: center; }
+            .hero-actions { justify-content: center; }
+            .floating-element { display: none; }
+            .info-grid { grid-template-columns: 1fr; margin-top: 40px; padding: 0; }
+            .checklist li { justify-content: center; }
+            .reg-visual-header { text-align: center; }
+        }
+        @media (max-width: 768px) {
+            .navbar { height: 90px; }
+            .agency-logo-bg { width: 200px; background-size: 300%; } /* الشعار في الجوال */
+            .hero-title { font-size: 2.5rem; }
+            .form-wrapper { padding: 24px; }
+            .hero-actions { flex-direction: column; width: 100%; }
+            .hero-actions .btn { width: 100%; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar" id="navbar">
+        <div class="container nav-container">
+            <div class="logo">
+                <div class="agency-logo-bg" title="شعار الجهاز"></div>
+            </div>
+            
+            <a href="#register" class="btn btn-accent btn-sm">التسجيل بالدورة</a>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <div class="hero-bg-shape"></div>
+        <div class="container hero-container">
+            <div class="hero-content reveal">
+                <div class="badges">
+                    <span class="badge"><i class="fa-solid fa-building-user"></i> مخصصة لموظفي الجهاز</span>
+                    <span class="badge"><i class="fa-solid fa-language"></i> English Language</span>
+                </div>
+                <h1 class="hero-title">دورة تطوير مهارات <span>اللغة الإنجليزية</span></h1>
+                <p class="hero-desc">ارتقِ بمستواك في اللغة الإنجليزية ضمن بيئة العمل. برنامج تدريبي متكامل مصمم خصيصاً لرفع كفاءة كوادر جهاز تنمية وإعمار المناطق الحضرية والريفية.</p>
+                
+                <div class="hero-actions">
+                    <a href="#register" class="btn btn-primary btn-lg">سجل بياناتك الآن <i class="fa-solid fa-arrow-left"></i></a>
+                    <a href="https://www.google.com/maps/place/%D8%A7%D9%84%D9%85%D8%B1%D9%83%D8%B2+%D8%A7%D9%84%D9%84%D9%8A%D8%A8%D9%8A+%D8%A7%D9%84%D9%83%D9%88%D8%B1%D9%8A%E2%80%AD/@32.8697377,13.2147335,17z/data=!3m1!4b1!4m6!3m5!1s0x13a89397ab6c860b:0x2e9f0c584881f801!8m2!3d32.8697377!4d13.2147335!16s%2Fg%2F11lh3tztcq?entry=ttu&g_ep=EgoyMDI2MDYyNC4wIKXMDSoASAFQAw%3D%3D" target="_blank" class="btn btn-secondary btn-lg">
+                        <i class="fa-solid fa-location-dot" style="color: var(--accent);"></i> موقع المعهد على الخريطة
+                    </a>
+                </div>
+            </div>
+            
+            <div class="hero-visual reveal-right">
+                <div class="interactive-graphic">
+                    <img src="https://images.unsplash.com/photo-1546410531-df4cb71576ac?q=80&w=1000&auto=format&fit=crop" alt="تدريب اللغة الانجليزية" class="hero-img">
+                    <div class="floating-element float-1">
+                        <i class="fa-solid fa-comments"></i>
+                        <div>محادثة وتواصل</div>
+                    </div>
+                    <div class="floating-element float-2">
+                        <i class="fa-solid fa-file-signature"></i>
+                        <div>مراسلات رسمية</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="info-grid">
+        <div class="info-card reveal">
+            <i class="fa-solid fa-location-dot"></i>
+            <h3>مكان الانعقاد</h3>
+            <p>المعهد الليبي الكوري</p>
+        </div>
+        <div class="info-card reveal" style="transition-delay: 0.1s;">
+            <i class="fa-solid fa-bullseye"></i>
+            <h3>المستهدفون</h3>
+            <p>كافة موظفي وإدارات الجهاز</p>
+        </div>
+        <div class="info-card reveal" style="transition-delay: 0.2s;">
+            <i class="fa-solid fa-certificate"></i>
+            <h3>الاعتماد</h3>
+            <p>شهادة إتمام معتمدة</p>
+        </div>
+    </div>
+
+    <section class="course-details section bg-light">
+        <div class="container">
+            <div class="section-header reveal">
+                <h2>تفاصيل البرنامج التدريبي</h2>
+                <p>نظرة عامة على الجدول الزمني وأسلوب الدورة</p>
+            </div>
+            <div class="grid-4">
+                <div class="feature-card reveal">
+                    <div class="icon-wrapper"><i class="fa-solid fa-calendar-week"></i></div>
+                    <h3>مدة الدورة</h3>
+                    <p>5 أيام تدريبية</p>
+                </div>
+                <div class="feature-card reveal" style="transition-delay: 0.1s;">
+                    <div class="icon-wrapper"><i class="fa-solid fa-clock"></i></div>
+                    <h3>الساعات اليومية</h3>
+                    <p>3 ساعات يومياً</p>
+                </div>
+                <div class="feature-card reveal" style="transition-delay: 0.2s;">
+                    <div class="icon-wrapper"><i class="fa-solid fa-chalkboard-user"></i></div>
+                    <h3>أسلوب التدريب</h3>
+                    <p>عملي وتفاعلي مباشر</p>
+                </div>
+                <div class="feature-card reveal" style="transition-delay: 0.3s;">
+                    <div class="icon-wrapper"><i class="fa-solid fa-graduation-cap"></i></div>
+                    <h3>المستوى</h3>
+                    <p>مخصص لبيئة العمل</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="register" class="registration section">
+        <div class="container registration-container">
+            <div class="cta-content reveal">
+                
+                <div class="reg-visual-header">
+                    <div class="animated-reg-icon">
+                        <i class="fa-solid fa-user-pen"></i>
+                    </div>
+                </div>
+
+                <h2>نموذج التسجيل الداخلي</h2>
+                <p>يرجى تعبئة بياناتك الوظيفية بدقة لضمان إدراجك في كشوفات الدورة التدريبية واعتماد مقعدك.</p>
+                <ul class="checklist">
+                    <li><i class="fa-solid fa-check"></i> تعزيز مهارات القراءة والكتابة</li>
+                    <li><i class="fa-solid fa-check"></i> إتقان المصطلحات الإدارية والهندسية</li>
+                    <li><i class="fa-solid fa-check"></i> تطوير قدرات التحدث والاستماع</li>
+                </ul>
+            </div>
+            
+            <div class="form-wrapper glass-card reveal-left">
+                <form id="registrationForm">
+                    <div class="form-group">
+                        <label for="name">الاسم ثلاثي <span class="required">*</span></label>
+                        <input type="text" id="name" name="name" placeholder="أدخل اسمك الثلاثي المطابق للسجلات" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">رقم الهاتف <span class="required">*</span></label>
+                        <input type="tel" id="phone" name="phone" placeholder="09X XXXXXXX" required dir="ltr" style="text-align: right;">
+                    </div>
+                    <div class="form-group">
+                        <label for="job">المسمى الوظيفي <span class="required">*</span></label>
+                        <input type="text" id="job" name="job" placeholder="صفتك الوظيفية الحالية" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="empId">الرقم الوظيفي <span class="required">*</span></label>
+                        <input type="number" id="empId" name="empId" placeholder="أدخل رقمك الوظيفي" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="department">الإدارة التابع لها <span class="required">*</span></label>
+                        <input type="text" id="department" name="department" placeholder="اسم الإدارة أو القسم" required>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary btn-block" id="submitBtn">
+                        <span class="btn-text">تأكيد التسجيل</span>
+                        <i class="fa-solid fa-spinner fa-spin loader-icon" style="display: none;"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="agency-logo-bg" title="شعار الجهاز"></div>
+            <h3 style="color: var(--accent); margin-bottom: 8px; font-size: 1.1rem;">جهاز تنمية وإعمار المناطق الحضرية والريفية</h3>
+            <p>© 2026 جميع الحقوق محفوظة لإدارة التدريب والتطوير.</p>
+        </div>
+    </footer>
+
+    <div id="toast" class="toast">
+        <i class="fa-solid fa-circle-check"></i>
+        <span>تم حفظ البيانات. جاري التحويل للواتساب...</span>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            
+            const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyiTHwcM_9kZiyi2cUOwed5IODUEtk3YtaYZlsW_MiGY-9LHFRM6uDp_yIgt4fWKeuYjA/exec"; 
+            const WHATSAPP_NUMBER = "00218912972174";
+
+            // Sticky Navbar
+            const navbar = document.getElementById('navbar');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) navbar.classList.add('scrolled');
+                else navbar.classList.remove('scrolled');
+            });
+
+            // Scroll Animations
+            const revealElements = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
+            const revealOptions = { threshold: 0.15, rootMargin: "0px 0px -50px 0px" };
+            const revealOnScroll = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (!entry.isIntersecting) return;
+                    entry.target.classList.add('active');
+                    observer.unobserve(entry.target);
+                });
+            }, revealOptions);
+            revealElements.forEach(el => revealOnScroll.observe(el));
+
+            // Form Submit
+            const form = document.getElementById('registrationForm');
+            const submitBtn = document.getElementById('submitBtn');
+            const btnText = submitBtn.querySelector('.btn-text');
+            const loaderIcon = submitBtn.querySelector('.loader-icon');
+            const toast = document.getElementById('toast');
+
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+
+                const formData = {
+                    name: form.name.value.trim(),
+                    phone: form.phone.value.trim(),
+                    job: form.job.value.trim(),
+                    empId: form.empId.value.trim(),
+                    department: form.department.value.trim()
+                };
+
+                submitBtn.disabled = true;
+                btnText.style.display = 'none';
+                loaderIcon.style.display = 'inline-block';
+
+                try {
+                    if (GOOGLE_SCRIPT_URL && GOOGLE_SCRIPT_URL !== "ضع_رابط_سكربت_جوجل_هنا") {
+                        await fetch(GOOGLE_SCRIPT_URL, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                            body: JSON.stringify(formData)
+                        });
+                    }
+
+                    toast.classList.add('show');
+                    setTimeout(() => toast.classList.remove('show'), 4000);
+
+                    const whatsappMessage = `السلام عليكم،
+تم تعبئة نموذج التسجيل بدورة اللغة الإنجليزية.
+- الاسم: ${formData.name}
+- الهاتف: ${formData.phone}
+- المسمى الوظيفي: ${formData.job}
+- الرقم الوظيفي: ${formData.empId}
+- الإدارة: ${formData.department}`;
+
+                    const encodedMessage = encodeURIComponent(whatsappMessage);
+                    const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodedMessage}`;
+
+                    setTimeout(() => {
+                        window.open(whatsappUrl, '_blank');
+                        form.reset();
+                        submitBtn.disabled = false;
+                        btnText.style.display = 'inline-block';
+                        loaderIcon.style.display = 'none';
+                    }, 2000);
+
+                } catch (error) {
+                    console.error('Error:', error);
+                    alert("حدث خطأ بالاتصال، سيتم تحويلك للواتساب مباشرة.");
+                    window.open(`https://wa.me/${WHATSAPP_NUMBER}`, '_blank');
+                    submitBtn.disabled = false;
+                    btnText.style.display = 'inline-block';
+                    loaderIcon.style.display = 'none';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
